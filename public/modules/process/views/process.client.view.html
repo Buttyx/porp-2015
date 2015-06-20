@@ -1,0 +1,29 @@
+<section data-ng-controller="ProcessController" data-ng-init="findOne()">
+	
+	<span ng-if="step.id == 'worker'">
+		<h2>Process worker identification</h2>
+		<p>
+			The process worker identified is {{ user.username }}.
+			To execute the rest of the process with another worker, please logout with the current one and login with the wanted one.
+		</p>
+
+		<p>
+			<a class="btn btn-primary btn-lg" href="/#!/processs/candidates">Continue to candidate selection</a>
+			<a class="btn btn-primary btn-lg" href="/#!/signout">Log out</a>
+		</p>
+	</span>	
+
+	<span ng-if="step.id == 'candidates'">
+		<h2>Step {{ step.id }}: Process candidate selection</h2>
+
+		<p>
+			The process worker identified is {{ user.username }}.
+			To execute the rest of the process with another worker, please logout with the current one and login with the wanted one.
+		</p>
+
+		<p>
+			<a class="btn btn-primary btn-lg" href="/#!/processs/results">Results</a>
+			<a class="btn btn-primary btn-lg" href="/#!/signout">Log out</a>
+		</p>
+	</span>
+</section>

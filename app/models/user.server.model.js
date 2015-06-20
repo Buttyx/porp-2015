@@ -37,12 +37,6 @@ var UserSchema = new Schema({
 		default: '',
 		validate: [validateLocalStrategyProperty, 'Please fill in your last name']
 	},
-	role: {
-		type: String,
-		trim: true,
-		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your role']
-	},
 	displayName: {
 		type: String,
 		trim: true
@@ -94,7 +88,21 @@ var UserSchema = new Schema({
 	},
 	resetPasswordExpires: {
 		type: Date
-	}
+	},
+
+
+	// Specific fields to process worker
+	roles_process: {
+		type: Array,
+		default: []
+	},
+	experience: {
+		type: String,
+		trim: true,
+		enum: ['Novice', 'Intermediate', 'Experimented'],
+		default: 'Novice',
+		validate: [validateLocalStrategyProperty, 'Please select your current level of expericence.']
+	},
 });
 
 /**
