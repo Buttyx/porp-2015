@@ -20,10 +20,13 @@
 					<input type="text" id="username" name="username" class="form-control" data-ng-model="user.username" placeholder="Username">
 				</div>
 				<div class="form-group">
+					<label for="contactInformation">Contact Information (Phone number, Address, ...)</label>
+					<textarea id="contactInformation" name="contactInformation" class="form-control" data-ng-model="user.contactInformation" placeholder="Write down your address, phone number or other contact information."></textarea>
+				</div>
+				<div class="form-group">
 					<label for="role">Roles of process worker</label>
 					<select multiple="true" id="role" name="role" class="form-control" data-ng-model="user.roles_process" placeholder="role">
-					  <option value="Assistant">Admin</option>
-					  <option value="User">User</option>
+					  <option value="Study Assistant">Study Assistant</option>
 					  <option value="Dean">Dean</option>
 					  <option value="Interviewer">Interviewer</option>
 					  <option value="Admission Commision">Admission Commision</option>

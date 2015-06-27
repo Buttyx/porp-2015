@@ -4,13 +4,12 @@
 angular.module('artifacts').controller('ArtifactsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Artifacts',
 	function($scope, $stateParams, $location, Authentication, Artifacts) {
 		$scope.authentication = Authentication;
+		$scope.artifact = {};
 
 		// Create new Artifact
 		$scope.create = function() {
 			// Create new Artifact object
-			var artifact = new Artifacts ({
-				name: this.name
-			});
+			var artifact = new Artifacts ($scope.artifact);
 
 			// Redirect after save
 			artifact.$save(function(response) {
@@ -25,7 +24,7 @@ angular.module('artifacts').controller('ArtifactsController', ['$scope', '$state
 
 		// Remove existing Artifact
 		$scope.remove = function(artifact) {
-			if ( artifact ) { 
+			if ( artifact ) {
 				artifact.$remove();
 
 				for (var i in $scope.artifacts) {
@@ -58,7 +57,7 @@ angular.module('artifacts').controller('ArtifactsController', ['$scope', '$state
 
 		// Find existing Artifact
 		$scope.findOne = function() {
-			$scope.artifact = Artifacts.get({ 
+			$scope.artifact = Artifacts.get({
 				artifactId: $stateParams.artifactId
 			});
 		};

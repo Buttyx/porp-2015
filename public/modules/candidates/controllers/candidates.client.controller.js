@@ -4,13 +4,12 @@
 angular.module('candidates').controller('CandidatesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Candidates',
 	function($scope, $stateParams, $location, Authentication, Candidates) {
 		$scope.authentication = Authentication;
+		$scope.candidate = {};
 
 		// Create new Candidate
 		$scope.create = function() {
 			// Create new Candidate object
-			var candidate = new Candidates ({
-				name: this.name
-			});
+			var candidate = new Candidates ($scope.candidate);
 
 			// Redirect after save
 			candidate.$save(function(response) {
@@ -25,7 +24,7 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$sta
 
 		// Remove existing Candidate
 		$scope.remove = function(candidate) {
-			if ( candidate ) { 
+			if ( candidate ) {
 				candidate.$remove();
 
 				for (var i in $scope.candidates) {
@@ -58,7 +57,7 @@ angular.module('candidates').controller('CandidatesController', ['$scope', '$sta
 
 		// Find existing Candidate
 		$scope.findOne = function() {
-			$scope.candidate = Candidates.get({ 
+			$scope.candidate = Candidates.get({
 				candidateId: $stateParams.candidateId
 			});
 		};

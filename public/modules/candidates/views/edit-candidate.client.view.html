@@ -10,10 +10,53 @@
                     <div class="controls">
                         <input type="text" data-ng-model="candidate.name" id="name" class="form-control" placeholder="Name" required>
                     </div>
+                </div>                
+                <div class="form-group">
+                    <label class="control-label" for="name">Nationality</label>
+                    <div class="controls">
+                        <select id="nationality" name="nationality" class="form-control" data-ng-model="candidate.nationality" placeholder="nationality">
+						  <option value="ch">Swiss</option>
+						  <option value="de">German</option>
+						  <option value="in">Indian</option>
+						</select>
+                    </div>
                 </div>
+                <div class="form-group">
+                    <label class="control-label" for="relevantBachelor">Bachelor in related fields?</label>
+                    <div class="controls">
+                        <input type="checkbox" data-ng-model="candidate.relevantBachelor" id="relevantBachelor" class="form-control" required>
+                    </div>
+                </div>  
+                <div class="form-group">
+                    <label class="control-label" for="grades">Grades</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="candidate.grades" id="grades" class="form-control" placeholder="Candidate's grades" required>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label class="control-label" for="certifiedUniversity">Diplom from a certified University</label>
+                    <div class="controls">
+                        <input type="checkbox" data-ng-model="candidate.certifiedUniversity" id="certifiedUniversity" class="form-control" required>
+                    </div>
+                </div> 
+                <div class="form-group">
+					<label for="contactInformation">Contact Information (Phone number, Address, ...)</label>
+					<textarea id="contactInformation" name="contactInformation" class="form-control" data-ng-model="candidate.contactInformation" placeholder="Write down the candidate's address, phone number or other contact information."></textarea>
+				</div>                
+				<div class="form-group">
+					<label for="academicQualifications">Academic Qualifications</label>
+					<textarea id="academicQualifications" name="academicQualifications" class="form-control" data-ng-model="candidate.academicQualifications" placeholder="Write down the candidate's academic qualifications."></textarea>
+				</div>				
+				<div class="form-group">
+					<label for="professionalExperience">Professional Experience</label>
+					<textarea id="professionalExperience" name="professionalExperience" class="form-control" data-ng-model="candidate.professionalExperience" placeholder="Write down the candidate's professional experience."></textarea>
+				</div>
                 <div class="form-group">
                     <input type="submit" value="Update" class="btn btn-default">
                 </div>
+                <div data-ng-show="success" class="text-center text-success">
+					<strong>Candidate Saved Successfully</strong>
+				</div>
 				<div data-ng-show="error" class="text-danger">
 					<strong data-ng-bind="error"></strong>
 				</div>

@@ -1,0 +1,19 @@
+<section data-ng-controller="StepsController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Steps</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="step in steps" data-ng-href="#!/steps/{{step._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="step.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="step.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="step.name"></h4>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!steps.$resolved || steps.length">
+    	No Steps yet, why don't you <a href="/#!/steps/create">create one</a>?
+    </div>
+</section>

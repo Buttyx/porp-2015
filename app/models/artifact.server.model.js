@@ -23,6 +23,33 @@ var ArtifactSchema = new Schema({
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
+	},
+
+	// PORP
+	type: {
+		type: String,
+		trim: true,
+		enum: ['Document', 'Link', 'Contact', 'Text', 'Task'],
+		default: 'Document'
+	},
+	data: {
+		type: String,
+		default: ''
+	},
+	source_id: {
+		type: Schema.ObjectId,
+	},
+	source_type: {
+		type: String,
+		default: ''
+	},
+	target_experiences: {
+		type: Array,
+		default: []
+	},
+	target_roles: {
+		type: Array,
+		default: []
 	}
 });
 

@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
+	Artifact = mongoose.model('Artifact'),
 	Schema = mongoose.Schema,
 	crypto = require('crypto');
 
@@ -79,8 +80,7 @@ var UserSchema = new Schema({
 		type: Date
 	},
 	created: {
-		type: Date,
-		default: Date.now
+		type: Date
 	},
 	/* For reset password */
 	resetPasswordToken: {
@@ -95,6 +95,9 @@ var UserSchema = new Schema({
 	roles_process: {
 		type: Array,
 		default: []
+	},
+	contactInformation: {
+		type: String
 	},
 	experience: {
 		type: String,
@@ -112,6 +115,26 @@ UserSchema.pre('save', function(next) {
 	if (this.password && this.password.length > 6) {
 		this.salt = crypto.randomBytes(16).toString('base64');
 		this.password = this.hashPassword(this.password);
+	}
+
+	next();
+});
+
+UserSchema.pre('save', function(next) {
+
+	if (!this.created) {
+		this.created = Date.now;
+		Artifact.create({
+			name: 'Contact information ' + this.displayName,
+			type: 'Contact',
+			data: this.contactInformation + ",\nEmail: " + this.email,
+			source_id: this,
+			source_type: 'User',
+			target_experiences: [],
+			target_roles: []
+		}, function (err) {
+			console.error(err);
+		});
 	}
 
 	next();
