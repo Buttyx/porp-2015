@@ -8,7 +8,7 @@
 		</p>
 
 		<p>
-			<a class="btn btn-primary btn-lg" href="/#!/processs/candidates">Continue to candidate selection</a>
+			<a class="btn btn-primary btn-lg" href="/#!/process/candidates">Continue to candidate selection</a>
 			<a class="btn btn-primary btn-lg" href="/auth/signout">Log out</a>
 		</p>
 	</span>	
@@ -21,9 +21,25 @@
 			To execute the rest of the process with another worker, please logout with the current one and login with the wanted one.
 		</p>
 
+		<div class="list-group">
+			<a ng-repeat="candidate in candidates" href="#" ng-click="selectCandidate(candidate)" ng-class="{'list-group-item': candidate, 'active': candidate.active}">
+			    <h4 class="list-group-item-heading">{{candidate.name}}</h4>
+			    <p class="list-group-item-text">
+			    	Nationality: {{candidate.nationality}}<br/>
+			    	Grades: {{candidate.grades}}
+			    </p>
+			</a>
+		</div>
+
 		<p>
-			<a class="btn btn-primary btn-lg" href="/#!/processs/results">Results</a>
-			<a class="btn btn-primary btn-lg" href="/#!/signout">Log out</a>
+			<a class="btn btn-primary btn-lg" href="/#!/process/worker">Change worker</a>
+			<a ng-show="currentCandidate" class="btn btn-primary btn-lg" href="/#!/process/results/{{ currentCandidate._id }}">Continue with {{ currentCandidate.name }}</a>
 		</p>
+	</span>	
+
+	<span ng-if="step.id == 'results'">
+		<h2>Step {{ step.id }}: Process results selection for {{ currentCandidate.name }}</h2>
+
 	</span>
+
 </section>

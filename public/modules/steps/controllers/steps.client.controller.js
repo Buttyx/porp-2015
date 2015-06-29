@@ -4,13 +4,11 @@
 angular.module('steps').controller('StepsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Steps',
 	function($scope, $stateParams, $location, Authentication, Steps) {
 		$scope.authentication = Authentication;
-
+		$scope.step = {};
 		// Create new Step
 		$scope.create = function() {
 			// Create new Step object
-			var step = new Steps ({
-				name: this.name
-			});
+			var step = new Steps ($scope.step);
 
 			// Redirect after save
 			step.$save(function(response) {
@@ -25,7 +23,7 @@ angular.module('steps').controller('StepsController', ['$scope', '$stateParams',
 
 		// Remove existing Step
 		$scope.remove = function(step) {
-			if ( step ) { 
+			if ( step ) {
 				step.$remove();
 
 				for (var i in $scope.steps) {
@@ -58,7 +56,7 @@ angular.module('steps').controller('StepsController', ['$scope', '$stateParams',
 
 		// Find existing Step
 		$scope.findOne = function() {
-			$scope.step = Steps.get({ 
+			$scope.step = Steps.get({
 				stepId: $stateParams.stepId
 			});
 		};

@@ -31,7 +31,7 @@ var StepSchema = new Schema({
 	},
 
 	// PORP
-	roles_process: {
+	roles: {
 		type: Array,
 		default: []
 	}

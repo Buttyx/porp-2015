@@ -6,7 +6,11 @@ angular.module('process').config(['$stateProvider',
 		// Process state routing
 		$stateProvider.
 		state('process', {
-			url: '/processs/:processId',
+			url: '/process/:processId',
+			templateUrl: 'modules/process/views/process.client.view.html'
+		}).
+		state('results', {
+			url: '/process/:processId/:candidateId',
 			templateUrl: 'modules/process/views/process.client.view.html'
 		});
 	}

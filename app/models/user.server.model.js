@@ -127,7 +127,7 @@ UserSchema.pre('save', function(next) {
 		Artifact.create({
 			name: 'Contact information ' + this.displayName,
 			type: 'Contact',
-			data: this.contactInformation + ",\nEmail: " + this.email,
+			data: this.contactInformation + ',\nEmail: ' + this.email,
 			source_id: this,
 			source_type: 'User',
 			target_experiences: [],
