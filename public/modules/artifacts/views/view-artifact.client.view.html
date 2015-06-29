@@ -2,7 +2,7 @@
 	<div class="page-header">
 		<h1 data-ng-bind="artifact.name"></h1>
 	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == artifact.user._id))">
+	<div class="pull-right">
 		<a class="btn btn-primary" href="/#!/artifacts/{{artifact._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
 		</a>

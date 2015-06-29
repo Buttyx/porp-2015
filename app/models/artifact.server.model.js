@@ -38,6 +38,7 @@ var ArtifactSchema = new Schema({
 	},
 	source_id: {
 		type: Schema.ObjectId,
+		ref: 'User'
 	},
 	source_type: {
 		type: String,

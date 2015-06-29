@@ -28,6 +28,14 @@
 					  <option value="Admission Commision">Admission Commision</option>
 					</select>
 				</div>
+
+				<div class="form-group">
+					<label for="artifacts">Default artifacts</label>
+					<select multiple="true" id="artifacts" name="artifacts" class="form-control" data-ng-model="step.artifacts" placeholder="artifacts">
+					  <option ng-repeat="a in newArtifacts" ng-value="a._id">{{ a.name }}</option>
+					</select>
+				</div>
+
                 <div class="form-group">
                     <input type="submit" class="btn btn-default">
                 </div>

@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
  * Step Schema
  */
 var StepSchema = new Schema({
-	number: {
+	position: {
 		type: Number,
 		default: '0',
 		required: 'Please fill Step number'
@@ -32,6 +32,10 @@ var StepSchema = new Schema({
 
 	// PORP
 	roles: {
+		type: Array,
+		default: []
+	},
+	artifacts: {
 		type: Array,
 		default: []
 	}

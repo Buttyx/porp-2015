@@ -72,7 +72,7 @@ exports.delete = function(req, res) {
 /**
  * List of Steps
  */
-exports.list = function(req, res) { 
+exports.list = function(req, res) {
 	Step.find().sort('-created').populate('user', 'displayName').exec(function(err, steps) {
 		if (err) {
 			return res.status(400).send({
@@ -87,7 +87,7 @@ exports.list = function(req, res) {
 /**
  * Step middleware
  */
-exports.stepByID = function(req, res, next, id) { 
+exports.stepByID = function(req, res, next, id) {
 	Step.findById(id).populate('user', 'displayName').exec(function(err, step) {
 		if (err) return next(err);
 		if (! step) return next(new Error('Failed to load Step ' + id));
@@ -100,8 +100,8 @@ exports.stepByID = function(req, res, next, id) {
  * Step authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.step.user.id !== req.user.id) {
-		return res.status(403).send('User is not authorized');
-	}
+	// if (req.step.user.id !== req.user.id) {
+	// 	return res.status(403).send('User is not authorized');
+	// }
 	next();
 };

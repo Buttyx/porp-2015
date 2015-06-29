@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Artifact = mongoose.model('Artifact'),
+	User = mongoose.model('User'),
 	_ = require('lodash');
 
 /**
@@ -72,8 +73,8 @@ exports.delete = function(req, res) {
 /**
  * List of Artifacts
  */
-exports.list = function(req, res) { 
-	Artifact.find().sort('-created').populate('user', 'displayName').exec(function(err, artifacts) {
+exports.list = function(req, res) {
+	Artifact.find().sort('-created').populate('user').exec(function(err, artifacts) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -87,12 +88,13 @@ exports.list = function(req, res) {
 /**
  * Artifact middleware
  */
-exports.artifactByID = function(req, res, next, id) { 
-	Artifact.findById(id).populate('user', 'displayName').exec(function(err, artifact) {
+exports.artifactByID = function(req, res, next, id) {
+	Artifact.findById(id).populate('source_id').exec(function(err, artifact) {
 		if (err) return next(err);
 		if (! artifact) return next(new Error('Failed to load Artifact ' + id));
 		req.artifact = artifact ;
 		next();
+
 	});
 };
 
@@ -100,8 +102,8 @@ exports.artifactByID = function(req, res, next, id) {
  * Artifact authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.artifact.user.id !== req.user.id) {
-		return res.status(403).send('User is not authorized');
-	}
+	// if (req.artifact.user.id !== req.user.id) {
+	//	return res.status(403).send('User is not authorized');
+	//}
 	next();
 };

@@ -3,7 +3,7 @@
         <h1>Artifacts</h1>
     </div>
     <div class="list-group">
-        <a data-ng-repeat="artifact in artifacts" data-ng-href="#!/artifacts/{{artifact._id}}" class="list-group-item">
+        <div data-ng-repeat="artifact in artifacts" data-ng-href="#!/artifacts/{{artifact._id}}" class="list-group-item">
 			<small class="list-group-item-text">
 				Posted on
 				<span data-ng-bind="artifact.created | date:'medium'"></span>
@@ -11,7 +11,16 @@
 				<span data-ng-bind="artifact.user.displayName"></span>
 			</small>
 			<h4 class="list-group-item-heading" data-ng-bind="artifact.name"></h4>
-        </a>
+
+			<span class="pull-right" style="margin-top:-40px">
+				<a class="btn btn-primary" href="/#!/artifacts/{{artifact._id}}/edit">
+					<i class="glyphicon glyphicon-edit"></i>
+				</a>
+				<a class="btn btn-primary" data-ng-click="remove(artifact);">
+					<i class="glyphicon glyphicon-trash"></i>
+				</a>
+			</span>
+        </div>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!artifacts.$resolved || artifacts.length">
     	No Artifacts yet, why don't you <a href="/#!/artifacts/create">create one</a>?

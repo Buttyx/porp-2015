@@ -15,7 +15,7 @@ angular.module('artifacts').config(['$stateProvider',
 		}).
 		state('viewArtifact', {
 			url: '/artifacts/:artifactId',
-			templateUrl: 'modules/artifacts/views/view-artifact.client.view.html'
+			templateUrl: 'modules/artifacts/views/list-artifacts.client.view.html'
 		}).
 		state('editArtifact', {
 			url: '/artifacts/:artifactId/edit',

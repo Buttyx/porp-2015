@@ -15,7 +15,7 @@ angular.module('candidates').config(['$stateProvider',
 		}).
 		state('viewCandidate', {
 			url: '/candidates/:candidateId',
-			templateUrl: 'modules/candidates/views/view-candidate.client.view.html'
+			templateUrl: 'modules/candidates/views/list-candidates.client.view.html'
 		}).
 		state('editCandidate', {
 			url: '/candidates/:candidateId/edit',

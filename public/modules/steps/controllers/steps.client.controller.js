@@ -1,10 +1,13 @@
 'use strict';
 
 // Steps controller
-angular.module('steps').controller('StepsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Steps',
-	function($scope, $stateParams, $location, Authentication, Steps) {
+angular.module('steps').controller('StepsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Steps', 'Artifacts',
+	function($scope, $stateParams, $location, Authentication, Steps, Artifacts) {
 		$scope.authentication = Authentication;
 		$scope.step = {};
+		$scope.artifacts = [];
+		$scope.newArtifacts = Artifacts.query();
+
 		// Create new Step
 		$scope.create = function() {
 			// Create new Step object
@@ -56,9 +59,21 @@ angular.module('steps').controller('StepsController', ['$scope', '$stateParams',
 
 		// Find existing Step
 		$scope.findOne = function() {
-			$scope.step = Steps.get({
-				stepId: $stateParams.stepId
+			$scope.artifacts = Artifacts.query({}, function () {
+				$scope.step = Steps.get({
+					stepId: $stateParams.stepId
+				}, function (data) {
+					angular.forEach($scope.artifacts, function (a1) {
+						angular.forEach(data.artifacts, function (a2) {
+							if (a1._id === a2._id) {
+								a1.selected = true;
+							}
+						});
+					});
+				});
 			});
+
+
 		};
 	}
 ]);

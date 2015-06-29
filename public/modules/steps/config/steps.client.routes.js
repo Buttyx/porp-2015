@@ -15,7 +15,7 @@ angular.module('steps').config(['$stateProvider',
 		}).
 		state('viewStep', {
 			url: '/steps/:stepId',
-			templateUrl: 'modules/steps/views/view-step.client.view.html'
+			templateUrl: 'modules/steps/views/list-steps.client.view.html'
 		}).
 		state('editStep', {
 			url: '/steps/:stepId/edit',
