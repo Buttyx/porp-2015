@@ -22,7 +22,7 @@ angular.module('process').controller('ProcessController', ['$scope', '$statePara
 				return $scope.user.experience === 'Novice' &&
 						a.type === 'Contact' &&
 						a.source_type === 'User' &&
-						a.source_id.experience !== undefined,
+						a.source_id.experience !== undefined &&
 						a.source_id.experience !== 'Novice';
 			},
 			// Interview team gets other expert contacts
