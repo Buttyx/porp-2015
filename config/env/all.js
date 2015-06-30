@@ -2,8 +2,8 @@
 
 module.exports = {
 	app: {
-		title: 'MEAN.JS',
-		description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js',
+		title: 'PORP - Interactive support of knowlege workers in a wiki-based process environnement',
+		description: 'Interactive support of knowlege workers in a wiki-based process environnement',
 		keywords: 'mongodb, express, angularjs, node.js, mongoose, passport'
 	},
 	port: process.env.PORT || 3000,
