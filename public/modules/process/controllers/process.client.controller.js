@@ -78,11 +78,11 @@ angular.module('process').controller('ProcessController', ['$scope', '$statePara
 
 		$scope.candidates = Candidates.query();
 
-		$scope.findOne = function () {
+		$scope.findOne = function (callback) {
 			if ($stateParams.candidateId) {
 				$scope.currentCandidate = Candidates.get({
 					candidateId: $stateParams.candidateId
-				});
+				}, callback);
 			}
 		};
 
@@ -124,17 +124,22 @@ angular.module('process').controller('ProcessController', ['$scope', '$statePara
 		};
 
 		$scope.generateResults = function () {
-			if (!$scope.currentCandidate)
-				$scope.findOne();
-
-
-
-			Steps.query(function () {
-				_.each($scope.steps, function (s) {
-					if ($scope.stepValid(s))
-						$scope.results[s._id] = getResults(s);
+			var func = function () {
+				Steps.query(function () {
+					_.each($scope.steps, function (s) {
+						if ($scope.stepValid(s))
+							$scope.results[s._id] = getResults(s);
+					});
 				});
-			});
+			};
+
+			if (!$scope.currentCandidate)
+				$scope.findOne(func);
+			else
+				func();
+
+
+
 		};
 
 	}
