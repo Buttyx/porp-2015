@@ -1,27 +1,28 @@
 <section data-ng-controller="ProcessController" data-ng-init="findOne()">
 	
-	<span ng-if="step.id == 'worker'">
-		<h2>Process worker identification</h2>
+	<span ng-if="step.id == 'worker'" class="col-md-12">
+		<h2>1. Process worker identification</h2>
 		<p>
-			The process worker identified is {{ user.username }}.
+			The process worker identified is <b>{{ user.firstName }} {{ user.lastName }}</b>.
+		</p>
+		<p>
 			To execute the rest of the process with another worker, please logout with the current one and login with the wanted one.
 		</p>
 
 		<p>
-			<a class="btn btn-primary btn-lg" href="/#!/process/candidates">Continue to candidate selection</a>
-			<a class="btn btn-primary btn-lg" href="/auth/signout">Log out</a>
+			<a class="btn btn-primary btn btn-warning" href="/auth/signout">Log out</a>
+			<a class="btn btn-primary btn btn-success" href="/#!/process/candidates">Continue to candidate selection<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
 		</p>
 	</span>	
 
-	<span ng-if="step.id == 'candidates'">
-		<h2>Step {{ step.id }}: Process candidate selection</h2>
+	<span ng-if="step.id == 'candidates'" class="col-md-12">
+		<h2>2: Candidate selection</h2>
 
 		<p>
-			The process worker identified is {{ user.username }}.
-			To execute the rest of the process with another worker, please logout with the current one and login with the wanted one.
+			You have to choose a candidate to continue the process. To create new candidate, use the menu at the top of the screen (Candidates > New candidate).
 		</p>
 
-		<div class="list-group">
+		<div class="list-group" class="col-md-12">
 			<a ng-repeat="candidate in candidates" href="#" ng-click="selectCandidate(candidate)" ng-class="{'list-group-item': candidate, 'active': candidate.active}">
 			    <h4 class="list-group-item-heading">{{candidate.name}}</h4>
 			    <p class="list-group-item-text">
@@ -32,20 +33,56 @@
 		</div>
 
 		<p>
-			<a class="btn btn-primary btn-lg" href="/#!/process/worker">Change worker</a>
-			<a ng-show="currentCandidate" class="btn btn-primary btn-lg" href="/#!/process/results/{{ currentCandidate._id }}">Continue with {{ currentCandidate.name }}</a>
+			<a class="btn btn-primary btn btn-info" href="/#!/process/worker"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back to worker identification</a>
+			<a ng-show="currentCandidate" class="btn btn-primary btn btn-success" href="/#!/process/results/{{ currentCandidate._id }}">Continue with {{ currentCandidate.name }}<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
 		</p>
 	</span>	
 
-	<span ng-if="step.id == 'results'" ng-init="generateResults()">
-		<h2>Step {{ step.id }}: Process results selection for {{ currentCandidate.name }}</h2>
+	<span ng-if="step.id == 'results'" ng-init="generateResults()" class="col-md-12">
+		<h2>3: Resulting Help artifacts</h2>
 
-		<div ng-repeat="s in steps" ng-show="results[s._id]!==undefined">
-			<h3>{{ s.name }}</h3>
-			<ul>
-				<li ng-repeat="r in results[s._id]">{{ r.name }}</li>
-			</ul>
+		<p>
+			The list below represents the artifacts filtered through the rules for each different step of the process for the given context:
+		</p>
+
+		<div>
+			<b>Process worker:</b> {{ user.firstName }} {{ user.lastName }}
+		</div>		
+		<div>
+			<b>Candidate:</b> {{ currentCandidate.name }}
 		</div>
+
+		<br/>
+
+
+		<div ng-repeat="s in steps | orderBy: 'position'" class="row" style=" margin-bottom: 10px; border: 1px solid lightgray;margin-top:5px;">
+			<div class="col-md-7" style="background-color: white">
+				<h3>Step {{ s.position }}: {{ s.name }}</h3>
+				<div ng-show="results[s._id]==undefined" class="alert alert-info" role="alert">Process worker <b>{{ user.firstName }} {{ user.lastName }}</b> not involved in this step</div>
+				<p ng-show="results[s._id]!==undefined">Execute this task...</p>
+			</div>
+
+  			<div class="col-md-5" style="padding-top: 5px;">
+  				<h4>Help artifacts</h4>
+  				<div class="list-group">
+				  <a ng-repeat="r in results[s._id]" href="#" class="list-group-item">
+				    <h5 class="list-group-item-heading">{{ r.name }}</h5>
+				    <p class="list-group-item-text">{{ r.data }}</p>
+				  </a>
+				</div>
+
+				<div class="panel panel-warning" ng-show="results[s._id]==undefined || results[s._id].length === 0">
+				  <div class="panel-heading">
+				    <h3 class="panel-title">No result found</h3>
+				  </div>
+				  <div class="panel-body">No help can be provided for this step</div>
+				</div>
+  			</div>
+		</div>
+
+		<p>
+			<a class="btn btn-primary btn btn-info" href="/#!/process/candidates"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back to candidat selection</a>
+		</p>
 
 	</span>
 

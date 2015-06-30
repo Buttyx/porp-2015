@@ -31,10 +31,41 @@ angular.module('process').controller('ProcessController', ['$scope', '$statePara
 						a.source_type === 'User' &&
 						a.source_id.experience === 'Experimented';
 			},
-			// Artifacts for the good person
+			// Artifacts for the roles with the given level of experience
 			simpleTargetBasedRule: function (a, s) {
 				return _.intersection(a.target_roles, $scope.user.roles_process).length > 0 &&
 						_.contains(a.target_experiences, $scope.user.experience);
+			},
+			// Interview team gets list of working experiance of candidate
+			interviewTeamCandidatsArtifacts: function (a, s) {
+				return _.contains($scope.user.roles_process, 'Interviewer') &&
+						a.source_type === 'User' &&
+						a.source_id._id === $scope.currentCandidate._id;
+			},
+			// Admission Comission gets contact information of all involved members of the interview
+			admissionCommisionInterviewer: function (a, s) {
+				return _.contains($scope.user.roles_process, 'Admission Commision') &&
+						a.type === 'Contact' &&
+						a.source_type === 'User' &&
+						_.contains(a.source_id.roles_process, 'Interviewer');
+			},
+			// Admission comission sees CV of candidate
+			admisstionCommissionCandidates: function (a, s) {
+				return _.contains($scope.user.roles_process, 'Admission Commision') &&
+						a.source_type === 'User' &&
+						a.source_id._id === $scope.currentCandidate._id;
+			},
+			// Dean sees the Weisung Admission Criteria
+			deanCommissionCandidates: function (a, s) {
+				return _.contains($scope.user.roles_process, 'Dean') &&
+						a.source_type === 'User' &&
+						a.source_id._id === $scope.currentCandidate._id;
+			},
+			// Study Assistant sees the Weisung Admission Criteria
+			studyAssistantCandidates: function (a, s) {
+				return _.contains($scope.user.roles_process, 'Study Assistant') &&
+						a.source_type === 'User' &&
+						a.source_id._id === $scope.currentCandidate._id;
 			}
 		};
 
