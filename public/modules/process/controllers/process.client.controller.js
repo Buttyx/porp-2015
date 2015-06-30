@@ -22,6 +22,7 @@ angular.module('process').controller('ProcessController', ['$scope', '$statePara
 				return $scope.user.experience === 'Novice' &&
 						a.type === 'Contact' &&
 						a.source_type === 'User' &&
+						a.source_id.experience !== undefined,
 						a.source_id.experience !== 'Novice';
 			},
 			// Interview team gets other expert contacts
@@ -40,7 +41,7 @@ angular.module('process').controller('ProcessController', ['$scope', '$statePara
 			interviewTeamCandidatsArtifacts: function (a, s) {
 				return _.contains($scope.user.roles_process, 'Interviewer') &&
 						a.source_type === 'User' &&
-						a.source_id._id === $scope.currentCandidate._id;
+						a.source_id === $scope.currentCandidate._id;
 			},
 			// Admission Comission gets contact information of all involved members of the interview
 			admissionCommisionInterviewer: function (a, s) {
@@ -59,13 +60,13 @@ angular.module('process').controller('ProcessController', ['$scope', '$statePara
 			deanCommissionCandidates: function (a, s) {
 				return _.contains($scope.user.roles_process, 'Dean') &&
 						a.source_type === 'User' &&
-						a.source_id._id === $scope.currentCandidate._id;
+						a.source_id === $scope.currentCandidate._id;
 			},
 			// Study Assistant sees the Weisung Admission Criteria
 			studyAssistantCandidates: function (a, s) {
 				return _.contains($scope.user.roles_process, 'Study Assistant') &&
 						a.source_type === 'User' &&
-						a.source_id._id === $scope.currentCandidate._id;
+						a.source_id === $scope.currentCandidate._id;
 			}
 		};
 
@@ -125,6 +126,8 @@ angular.module('process').controller('ProcessController', ['$scope', '$statePara
 		$scope.generateResults = function () {
 			if (!$scope.currentCandidate)
 				$scope.findOne();
+
+
 
 			Steps.query(function () {
 				_.each($scope.steps, function (s) {
