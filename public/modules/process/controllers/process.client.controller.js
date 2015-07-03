@@ -10,63 +10,65 @@ angular.module('process').controller('ProcessController', ['$scope', '$statePara
 
 		var getResults;
 		var _ = window._;
+		// Step based rules
 		var rulesSteps = {
 			// If role of worker is not involved in one step, we don't show the step
 			noStep: function (step) {
 				return _.intersection(step.roles, $scope.user.roles_process).length > 0;
 			}
 		};
+		// Artifact based ruled
 		var rulesArtifacts = {
 			// Novice gets all possible contacts for process worker with intermedia level or more
-			helpFromExperimented: function (a, s) {
+			helpFromExperimented: function (artifact, s) {
 				return $scope.user.experience === 'Novice' &&
-						a.type === 'Contact' &&
-						a.source_type === 'User' &&
-						a.source_id.experience !== undefined &&
-						a.source_id.experience !== 'Novice';
+						artifact.type === 'Contact' &&
+						artifact.source_type === 'User' &&
+						artifact.source_id.experience !== undefined &&
+						artifact.source_id.experience !== 'Novice';
 			},
 			// Interview team gets other expert contacts
-			helpFromExpertForInterview: function (a, s) {
+			helpFromExpertForInterview: function (artifact, s) {
 				return _.contains($scope.user.roles_process, 'Interviewer') &&
-						a.type === 'Contact' &&
-						a.source_type === 'User' &&
-						a.source_id.experience === 'Experimented';
+						artifact.type === 'Contact' &&
+						artifact.source_type === 'User' &&
+						artifact.source_id.experience === 'Experimented';
 			},
 			// Artifacts for the roles with the given level of experience
-			simpleTargetBasedRule: function (a, s) {
-				return _.intersection(a.target_roles, $scope.user.roles_process).length > 0 &&
-						_.contains(a.target_experiences, $scope.user.experience);
+			simpleTargetBasedRule: function (artifact, s) {
+				return _.intersection(artifact.target_roles, $scope.user.roles_process).length > 0 &&
+						_.contains(artifact.target_experiences, $scope.user.experience);
 			},
 			// Interview team gets list of working experiance of candidate
-			interviewTeamCandidatsArtifacts: function (a, s) {
+			interviewTeamCandidatsArtifacts: function (artifact, s) {
 				return _.contains($scope.user.roles_process, 'Interviewer') &&
-						a.source_type === 'User' &&
-						a.source_id === $scope.currentCandidate._id;
+						artifact.source_type === 'User' &&
+						artifact.source_id === $scope.currentCandidate._id;
 			},
 			// Admission Comission gets contact information of all involved members of the interview
-			admissionCommisionInterviewer: function (a, s) {
+			admissionCommisionInterviewer: function (artifact, s) {
 				return _.contains($scope.user.roles_process, 'Admission Commision') &&
-						a.type === 'Contact' &&
-						a.source_type === 'User' &&
-						_.contains(a.source_id.roles_process, 'Interviewer');
+						artifact.type === 'Contact' &&
+						artifact.source_type === 'User' &&
+						_.contains(artifact.source_id.roles_process, 'Interviewer');
 			},
 			// Admission comission sees CV of candidate
-			admisstionCommissionCandidates: function (a, s) {
+			admisstionCommissionCandidates: function (artifact, s) {
 				return _.contains($scope.user.roles_process, 'Admission Commision') &&
-						a.source_type === 'User' &&
-						a.source_id._id === $scope.currentCandidate._id;
+						artifact.source_type === 'User' &&
+						artifact.source_id._id === $scope.currentCandidate._id;
 			},
 			// Dean sees the Weisung Admission Criteria
-			deanCommissionCandidates: function (a, s) {
+			deanCommissionCandidates: function (artifact, s) {
 				return _.contains($scope.user.roles_process, 'Dean') &&
-						a.source_type === 'User' &&
-						a.source_id === $scope.currentCandidate._id;
+						artifact.source_type === 'User' &&
+						artifact.source_id === $scope.currentCandidate._id;
 			},
 			// Study Assistant sees the Weisung Admission Criteria
-			studyAssistantCandidates: function (a, s) {
+			studyAssistantCandidates: function (artifact, s) {
 				return _.contains($scope.user.roles_process, 'Study Assistant') &&
-						a.source_type === 'User' &&
-						a.source_id === $scope.currentCandidate._id;
+						artifact.source_type === 'User' &&
+						artifact.source_id === $scope.currentCandidate._id;
 			}
 		};
 

@@ -1,12 +1,12 @@
 {
-	"name": "meanjs",
-	"description": "Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js.",
-	"version": "0.3.3",
+	"name": "porp-2015",
+	"description": "Prototype created as proof of concept to provide Interactive support for knowledge workers.",
+	"version": "0.0.1",
 	"private": false,
-	"author": "https://github.com/meanjs/mean/graphs/contributors",
+	"author": "https://github.com/Buttyx/mean/porp-2015/contributors",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/meanjs/mean.git"
+		"url": "https://github.com/Buttyx/porp-2015"
 	},
 	"engines": {
 		"node": ">=0.10.28",
