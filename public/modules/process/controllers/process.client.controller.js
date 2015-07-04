@@ -20,7 +20,7 @@ angular.module('process').controller('ProcessController', ['$scope', '$statePara
 		// Artifact based ruled
 		var rulesArtifacts = {
 			// Novice gets all possible contacts for process worker with intermedia level or more
-			helpFromExperimented: function (artifact, s) {
+			helpFromExperimented: function (artifact, step) {
 				return $scope.user.experience === 'Novice' &&
 						artifact.type === 'Contact' &&
 						artifact.source_type === 'User' &&
@@ -28,44 +28,44 @@ angular.module('process').controller('ProcessController', ['$scope', '$statePara
 						artifact.source_id.experience !== 'Novice';
 			},
 			// Interview team gets other expert contacts
-			helpFromExpertForInterview: function (artifact, s) {
+			helpFromExpertForInterview: function (artifact, step) {
 				return _.contains($scope.user.roles_process, 'Interviewer') &&
 						artifact.type === 'Contact' &&
 						artifact.source_type === 'User' &&
 						artifact.source_id.experience === 'Experimented';
 			},
 			// Artifacts for the roles with the given level of experience
-			simpleTargetBasedRule: function (artifact, s) {
+			simpleTargetBasedRule: function (artifact, step) {
 				return _.intersection(artifact.target_roles, $scope.user.roles_process).length > 0 &&
 						_.contains(artifact.target_experiences, $scope.user.experience);
 			},
 			// Interview team gets list of working experiance of candidate
-			interviewTeamCandidatsArtifacts: function (artifact, s) {
+			interviewTeamCandidatsArtifacts: function (artifact, step) {
 				return _.contains($scope.user.roles_process, 'Interviewer') &&
 						artifact.source_type === 'User' &&
 						artifact.source_id === $scope.currentCandidate._id;
 			},
 			// Admission Comission gets contact information of all involved members of the interview
-			admissionCommisionInterviewer: function (artifact, s) {
+			admissionCommisionInterviewer: function (artifact, step) {
 				return _.contains($scope.user.roles_process, 'Admission Commision') &&
 						artifact.type === 'Contact' &&
 						artifact.source_type === 'User' &&
 						_.contains(artifact.source_id.roles_process, 'Interviewer');
 			},
 			// Admission comission sees CV of candidate
-			admisstionCommissionCandidates: function (artifact, s) {
+			admisstionCommissionCandidates: function (artifact, step) {
 				return _.contains($scope.user.roles_process, 'Admission Commision') &&
 						artifact.source_type === 'User' &&
 						artifact.source_id._id === $scope.currentCandidate._id;
 			},
 			// Dean sees the Weisung Admission Criteria
-			deanCommissionCandidates: function (artifact, s) {
+			deanCommissionCandidates: function (artifact, step) {
 				return _.contains($scope.user.roles_process, 'Dean') &&
 						artifact.source_type === 'User' &&
 						artifact.source_id === $scope.currentCandidate._id;
 			},
 			// Study Assistant sees the Weisung Admission Criteria
-			studyAssistantCandidates: function (artifact, s) {
+			studyAssistantCandidates: function (artifact, step) {
 				return _.contains($scope.user.roles_process, 'Study Assistant') &&
 						artifact.source_type === 'User' &&
 						artifact.source_id === $scope.currentCandidate._id;

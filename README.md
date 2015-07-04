@@ -13,6 +13,9 @@ A current test version is available online: http://porp.buttyx.me/.
 ### Technology
 The MEAN stack represents the basis technology stack on which the tool has been build. The [MEAN.JS](http://meanjs.org/) solution has been chosen for the implementation.
 
+### How to install it
+As the tool has been buidl with MEAN.JS, please follow the its ['getting started'](http://meanjs.org/docs.html#getting-started) documentation to install and run ti.
+
 ### Authors
 [Xavier Butty](buttyxavier@gmail.com)
 [Thomas Stuber](tstuber@gmail.com)
